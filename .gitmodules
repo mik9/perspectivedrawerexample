@@ -1,0 +1,3 @@
+[submodule "libraries/perspectivedrawer"]
+	path = libraries/perspectivedrawer
+	url = git@github.com:mik9/perspectivedrawer.git

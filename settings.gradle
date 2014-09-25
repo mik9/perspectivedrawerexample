@@ -1,0 +1,2 @@
+include ':app', ':perspectivedrawer'
+project(':perspectivedrawer').projectDir = new File('libraries/perspectivedrawer')
