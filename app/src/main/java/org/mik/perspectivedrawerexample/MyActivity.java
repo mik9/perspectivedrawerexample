@@ -64,8 +64,10 @@ public class MyActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.my, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_close_drawer);
-        menuItem.setChecked(mCloseDrawer);
+        MenuItem menuCloseAction = menu.findItem(R.id.action_close_drawer);
+        menuCloseAction.setChecked(mCloseDrawer);
+        MenuItem menuDimming = menu.findItem(R.id.action_dimming_enabled);
+        menuDimming.setChecked(mDrawer.isDimmingEnabled());
         return true;
     }
 
