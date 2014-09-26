@@ -107,4 +107,13 @@ public class MyActivity extends ActionBarActivity {
         editor.putBoolean("dimming", mDrawer.isDimmingEnabled());
         editor.apply();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer.isOpened()) {
+            super.onBackPressed();
+        } else {
+            mDrawer.open();
+        }
+    }
 }
