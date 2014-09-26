@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">PerspectiveDrawerExample</string>
-    <string name="action_close_drawer">Settings</string>
+    <string name="action_close_drawer">Close on click</string>
+    <string name="action_dim_enabled">Dimming</string>
 
     <string name="kyiv">Kyiv</string>
     <string name="london">London</string>

@@ -1,5 +1,6 @@
 package org.mik.perspectivedrawerexample;
 
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -48,7 +49,9 @@ public class MyActivity extends ActionBarActivity {
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(mPlaceClickListener);
 
-        mCloseDrawer = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("close_drawer", false);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        mCloseDrawer = pref.getBoolean("close_drawer", false);
+        mDrawer.setDimmingEnabled(pref.getBoolean("dimming", true));
     }
 
 
@@ -69,11 +72,16 @@ public class MyActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_close_drawer) {
-            item.setChecked(!item.isChecked());
-            mCloseDrawer = item.isChecked();
-            return true;
+        switch (id) {
+            case R.id.action_close_drawer:
+                item.setChecked(!item.isChecked());
+                mCloseDrawer = item.isChecked();
+                break;
+            case R.id.action_dimming_enabled:
+                item.setChecked(!item.isChecked());
+                mDrawer.setDimmingEnabled(item.isChecked());
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -82,6 +90,9 @@ public class MyActivity extends ActionBarActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("close_drawer", mCloseDrawer).commit();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putBoolean("close_drawer", mCloseDrawer).commit();
+        editor.putBoolean("dimming", mDrawer.isDimmingEnabled());
+        editor.commit();
     }
 }

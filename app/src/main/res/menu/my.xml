@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         app:showAsAction="never"
         android:checkable="true"/>
+    <item android:id="@+id/action_dimming_enabled"
+        android:title="@string/action_dim_enabled"
+        android:orderInCategory="101"
+        app:showAsAction="never"
+        android:checkable="true"
+        android:checked="true"/>
 </menu>
