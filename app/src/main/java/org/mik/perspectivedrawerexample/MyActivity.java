@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import org.mik.perspectivedrawer.PerspectiveDrawer;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import ua.pl.mik.perspectivedrawer.PerspectiveDrawer;
 
 public class MyActivity extends ActionBarActivity {
 
