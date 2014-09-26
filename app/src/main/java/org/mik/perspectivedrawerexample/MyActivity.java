@@ -35,6 +35,7 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my);
 
         mMapView = (MapView) findViewById(R.id.map_view);
+        TileSources.setUpTileSource(mMapView, TileSources.Sources.GOOGLE_ORIGINAL, this);
         mMapView.getController().setZoom(14);
         mMapView.setMultiTouchControls(true);
 
