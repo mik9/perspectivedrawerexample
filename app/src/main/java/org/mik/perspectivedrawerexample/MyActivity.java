@@ -42,7 +42,6 @@ public class MyActivity extends ActionBarActivity {
 
         ListView listView = (ListView) findViewById(R.id.places);
         mDrawer = (PerspectiveDrawer) findViewById(R.id.drawer);
-        mDrawer.open();
 
         mAdapter = new PlacesAdapter(this);
 
@@ -52,6 +51,12 @@ public class MyActivity extends ActionBarActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         mCloseDrawer = pref.getBoolean("close_drawer", false);
         mDrawer.setDimmingEnabled(pref.getBoolean("dimming", true));
+
+        if (savedInstanceState != null) {
+            mMapView.getController().setCenter((org.osmdroid.api.IGeoPoint) savedInstanceState.getSerializable("map_center"));
+        } else {
+            mDrawer.open();
+        }
     }
 
 
@@ -87,12 +92,19 @@ public class MyActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("map_center", (java.io.Serializable) mMapView.getMapCenter());
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-        editor.putBoolean("close_drawer", mCloseDrawer).commit();
+        editor.putBoolean("close_drawer", mCloseDrawer);
         editor.putBoolean("dimming", mDrawer.isDimmingEnabled());
-        editor.commit();
+        editor.apply();
     }
 }
