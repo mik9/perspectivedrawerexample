@@ -1,6 +1,8 @@
 package org.mik.perspectivedrawerexample;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,7 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import ua.pl.mik.perspectivedrawer.PerspectiveDrawer;
+import ua.pl.mik.perspectivedrawer.ActionBarDrawerToggle;
+import ua.pl.mik.perspectivedrawer.DrawerLayout;
 
 public class MyActivity extends ActionBarActivity {
 
@@ -28,7 +31,8 @@ public class MyActivity extends ActionBarActivity {
     private PlacesAdapter mAdapter;
     private MapView mMapView;
     private boolean mCloseDrawer;
-    private PerspectiveDrawer mDrawer;
+    private DrawerLayout mDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class MyActivity extends ActionBarActivity {
         mMapView.setMultiTouchControls(true);
 
         ListView listView = (ListView) findViewById(R.id.places);
-        mDrawer = (PerspectiveDrawer) findViewById(R.id.drawer);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer);
 
         mAdapter = new PlacesAdapter(this);
 
@@ -57,8 +61,20 @@ public class MyActivity extends ActionBarActivity {
         } else {
             mDrawer.open();
         }
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, R.drawable.ic_navigation_drawer, R.string.action_close_drawer,
+                R.string.action_close_drawer);
+        mDrawer.setListener(mDrawerToggle);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,9 +103,10 @@ public class MyActivity extends ActionBarActivity {
             case R.id.action_dimming_enabled:
                 item.setChecked(!item.isChecked());
                 mDrawer.setDimmingEnabled(item.isChecked());
+                break;
         }
 
-
+        mDrawerToggle.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
     }
 
@@ -117,5 +134,17 @@ public class MyActivity extends ActionBarActivity {
         } else {
             mDrawer.open();
         }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 }

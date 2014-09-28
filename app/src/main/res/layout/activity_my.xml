@@ -1,4 +1,4 @@
-<ua.pl.mik.perspectivedrawer.PerspectiveDrawer
+<ua.pl.mik.perspectivedrawer.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
@@ -28,4 +28,4 @@
             android:background="#E9E5DC"/>
     </ua.pl.mik.perspectivedrawer.PageHolder>
 
-</ua.pl.mik.perspectivedrawer.PerspectiveDrawer>
+</ua.pl.mik.perspectivedrawer.DrawerLayout>
