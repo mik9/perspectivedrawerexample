@@ -38,6 +38,7 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
 
         ImageDownloadTask imageDownloadTask = new ImageDownloadTask(viewHolder.placeImage, getContext());
         viewHolder.placeImage.setTag(imageDownloadTask);
+        viewHolder.placeImage.setImageDrawable(null);
         imageDownloadTask.execute(place);
 
         return view;
